@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+</head>
+<body>
+    <h1>Currency Converter</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="amount">Amount:</label>
+        <input type="number" name="amount" required>
+        
+        <label for="from_currency">From Currency:</label>
+        <input type="text" name="from_currency" required>
+        
+        <label for="to_currency">To Currency:</label>
+        <input type="text" name="to_currency" required>
+        
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if conversion_result %}
+        <h2>Converted Amount: {{ conversion_result }}</h2>
+        <h3>Present Value (Exchange Rate): {{ present_value }}</h3>  <!-- Show present value -->
+    {% endif %}
+
+    {% if historical_data %}
+        <h3>Last 5 Days Historical Data for {{ from_currency }} to {{ to_currency }}:</h3>
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Historical Rate</th>
+            </tr>
+            {% for date, rate in historical_data.items %}
+                <tr>
+                    <td>{{ date }}</td>
+                    <td>{{ rate }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <h3>Your Conversion History:</h3>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>From Currency</th>
+            <th>To Currency</th>
+            <th>Amount</th>
+            <th>Converted Amount</th>
+        </tr>
+        {% for conversion in conversion_history %}
+            <tr>
+                <td>{{ conversion.date }}</td>
+                <td>{{ conversion.from_currency }}</td>
+                <td>{{ conversion.to_currency }}</td>
+                <td>{{ conversion.amount }}</td>
+                <td>{{ conversion.converted_amount }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
