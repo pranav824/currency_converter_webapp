@@ -19,7 +19,7 @@ This is a simple currency converter application built using Django. The applicat
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/pranav824/currency_converter_webapp
+   git clone https://github.com/pranav824/currency_converter_webapp.git
    cd currency_converter
 
 3. Remove .venv directory and create a new .venv and activate it, this will help the user not to install the dependencies globally. Since I am running a localhost I have created a virtual environment so that the dependencies are not installed globally into the system, which is a best practice.
